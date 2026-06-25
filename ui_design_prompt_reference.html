@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UI Design Prompt Reference Library</title>
+  <style>
+    :root {
+      --bg: #f5f6f8;
+      --panel: rgba(255,255,255,.82);
+      --panel-solid: #ffffff;
+      --text: #13161f;
+      --muted: #667085;
+      --line: rgba(19,22,31,.12);
+      --accent: #2563eb;
+      --accent-2: #7c3aed;
+      --shadow: 0 18px 50px rgba(20, 27, 45, .10);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --code: #101828;
+      --codeText: #f9fafb;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(37,99,235,.13), transparent 30%),
+        radial-gradient(circle at top right, rgba(124,58,237,.12), transparent 26%),
+        linear-gradient(180deg, #fbfcff 0%, var(--bg) 42%, #eef1f6 100%);
+      color: var(--text);
+    }
+
+    .shell { width: min(1440px, calc(100% - 36px)); margin: 0 auto; }
+    header {
+      padding: 54px 0 30px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(24px);
+      background: linear-gradient(180deg, rgba(251,252,255,.92), rgba(251,252,255,.70));
+      border-bottom: 1px solid rgba(19,22,31,.08);
+    }
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 24px;
+      align-items: end;
+    }
+    h1 { margin: 0 0 12px; font-size: clamp(34px, 4vw, 68px); line-height: .96; letter-spacing: -0.065em; }
+    .subtitle { margin: 0; color: var(--muted); font-size: 17px; line-height: 1.6; max-width: 760px; }
+    .top-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+    .top-card strong { display: block; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+    .top-card p { margin: 0; color: var(--muted); line-height: 1.55; }
+    .controls { display: grid; grid-template-columns: minmax(220px, 1fr) auto; gap: 14px; margin-top: 26px; }
+    .search {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.85);
+      border-radius: 999px;
+      padding: 15px 18px;
+      font-size: 15px;
+      outline: none;
+      box-shadow: 0 8px 25px rgba(15,23,42,.05);
+    }
+    .search:focus { border-color: rgba(37,99,235,.55); box-shadow: 0 0 0 4px rgba(37,99,235,.11); }
+    .count { display: flex; align-items: center; color: var(--muted); white-space: nowrap; font-weight: 650; }
+    .chips { display: flex; gap: 9px; flex-wrap: wrap; margin-top: 16px; }
+    .chip {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.8);
+      border-radius: 999px;
+      padding: 9px 13px;
+      color: #344054;
+      cursor: pointer;
+      font-weight: 650;
+      font-size: 13px;
+    }
+    .chip.active { background: #101828; color: white; border-color: #101828; }
+    main { padding: 28px 0 70px; }
+    .category-title { margin: 42px 0 16px; display:flex; align-items:center; gap:12px; }
+    .category-title h2 { margin:0; font-size: 24px; letter-spacing: -.03em; }
+    .category-title span { color: var(--muted); font-weight: 650; }
+    .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+    .card {
+      background: var(--panel-solid);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: 0 14px 35px rgba(20,27,45,.07);
+      display: flex;
+      flex-direction: column;
+      min-height: 470px;
+    }
+    .preview { height: 176px; padding: 16px; position: relative; overflow:hidden; border-bottom: 1px solid rgba(19,22,31,.08); }
+    .preview::before { content:""; position:absolute; inset:0; opacity:.9; }
+    .mock { position:relative; z-index:1; height:100%; border-radius:22px; padding:14px; display:flex; flex-direction:column; gap:10px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.28); }
+    .bar { height:10px; border-radius:99px; width:62%; background:rgba(255,255,255,.8); }
+    .bar.small { width:38%; opacity:.72; }
+    .row { display:flex; gap:8px; flex:1; min-height:0; }
+    .tile { border-radius:16px; flex:1; background:rgba(255,255,255,.55); border:1px solid rgba(255,255,255,.35); }
+    .tile.dark { background:rgba(17,24,39,.42); border-color:rgba(17,24,39,.15); }
+    .content { padding: 18px; display: flex; flex-direction: column; flex: 1; }
+    .eyebrow { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--accent); font-weight: 800; margin-bottom: 8px; }
+    h3 { margin: 0 0 8px; font-size: 20px; letter-spacing: -.025em; }
+    .desc { margin: 0 0 12px; color: var(--muted); line-height: 1.5; font-size: 14px; }
+    .tags { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px; }
+    .tag { background:#f2f4f7; color:#475467; font-size:12px; padding:5px 8px; border-radius:999px; font-weight:650; }
+    pre {
+      margin: 0;
+      background: var(--code);
+      color: var(--codeText);
+      border-radius: 18px;
+      padding: 14px;
+      line-height: 1.5;
+      font-size: 12.5px;
+      white-space: pre-wrap;
+      flex: 1;
+      overflow:auto;
+      max-height: 215px;
+    }
+    .actions { display:flex; justify-content:space-between; align-items:center; gap:10px; margin-top: 12px; }
+    button.copy {
+      border:0; border-radius:999px; padding:10px 13px; background:linear-gradient(135deg, var(--accent), var(--accent-2)); color:white; font-weight:800; cursor:pointer;
+      box-shadow: 0 10px 20px rgba(37,99,235,.22);
+    }
+    .usage { color:var(--muted); font-size:12px; font-weight:700; }
+    .hidden { display:none !important; }
+
+    .s-aurora::before{background:linear-gradient(135deg,#0f172a,#2563eb 45%,#a78bfa);} .s-aurora .mock{background:rgba(255,255,255,.12);}
+    .s-glass::before{background:radial-gradient(circle at 25% 20%,#93c5fd,transparent 35%),radial-gradient(circle at 80% 10%,#f0abfc,transparent 35%),linear-gradient(135deg,#e0f2fe,#fdf2f8);} .s-glass .mock{background:rgba(255,255,255,.35);backdrop-filter:blur(8px);}
+    .s-dark::before{background:linear-gradient(135deg,#020617,#111827,#334155);} .s-dark .mock{background:#0b1220;}
+    .s-soft::before{background:linear-gradient(135deg,#f8fafc,#e2e8f0);} .s-soft .mock{background:#fff;}
+    .s-neon::before{background:radial-gradient(circle,#22d3ee,transparent 30%),linear-gradient(135deg,#020617,#581c87);} .s-neon .mock{background:rgba(2,6,23,.78);box-shadow:0 0 28px rgba(34,211,238,.45);}
+    .s-editorial::before{background:linear-gradient(135deg,#faf7f0,#111827);} .s-editorial .mock{background:#fff8ec;color:#111;}
+    .s-retro::before{background:repeating-linear-gradient(45deg,#fb923c 0 18px,#fde68a 18px 36px,#60a5fa 36px 54px);} .s-retro .mock{background:#fff7ed;}
+    .s-terminal::before{background:#000;} .s-terminal .mock{background:#021207;box-shadow:0 0 30px rgba(34,197,94,.32);} .s-terminal .bar,.s-terminal .tile{background:rgba(34,197,94,.55);}
+    .s-luxury::before{background:linear-gradient(135deg,#111,#3b2f18,#d4af37);} .s-luxury .mock{background:#101010;}
+    .s-playful::before{background:radial-gradient(circle at 25% 25%,#facc15,transparent 26%),radial-gradient(circle at 75% 20%,#fb7185,transparent 28%),linear-gradient(135deg,#7dd3fc,#c4b5fd);} .s-playful .mock{background:white; transform:rotate(-1deg);}
+    .s-health::before{background:linear-gradient(135deg,#ecfdf5,#14b8a6,#0f766e);} .s-health .mock{background:rgba(255,255,255,.6);}
+    .s-finance::before{background:linear-gradient(135deg,#052e16,#166534,#bbf7d0);} .s-finance .mock{background:#052e16;}
+    .s-saas::before{background:linear-gradient(135deg,#f8fafc,#dbeafe,#bfdbfe);} .s-saas .mock{background:white;}
+    .s-minimal::before{background:#fff;} .s-minimal .mock{background:#f9fafb;border:1px solid #e5e7eb;}
+    .s-brutal::before{background:#fef08a;} .s-brutal .mock{background:white;border:4px solid #000;box-shadow:8px 8px 0 #000;border-radius:0;}
+    .s-clay::before{background:#f3e8ff;} .s-clay .mock{background:#faf5ff;box-shadow:10px 10px 25px #d8b4fe,-10px -10px 25px #fff;}
+    .s-cyber::before{background:linear-gradient(135deg,#020617,#0e7490,#f97316);} .s-cyber .mock{background:rgba(2,6,23,.82);clip-path:polygon(0 0,94% 0,100% 12%,100% 100%,6% 100%,0 88%);}
+    .s-nature::before{background:linear-gradient(135deg,#365314,#84cc16,#fefce8);} .s-nature .mock{background:rgba(254,252,232,.78);}
+    .s-ios::before{background:linear-gradient(135deg,#f8fafc,#e0f2fe,#f5f3ff);} .s-ios .mock{background:rgba(255,255,255,.75);}
+    .s-android::before{background:linear-gradient(135deg,#e7f8ef,#34a853,#0f9d58);} .s-android .mock{background:#f8fff9;}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="shell">
+      <div class="hero">
+        <div>
+          <h1>UI Design Prompt Reference Library</h1>
+          <p class="subtitle">A large organized collection of UI styles I can create for websites, desktop apps, dashboards, tools, portals, and local programs. Search, filter by category, then copy the prompt for the style you want.</p>
+        </div>
+        <div class="top-card">
+          <strong>How to use</strong>
+          <p>Pick a design style, copy the prompt, and add your app idea after it. Example: “Use the Apple-like Glass style below for a local image manager app.”</p>
+        </div>
+      </div>
+      <div class="controls">
+        <input id="search" class="search" placeholder="Search styles, tags, industries, moods..." />
+        <div class="count" id="count"></div>
+      </div>
+      <div class="chips" id="chips"></div>
+    </div>
+  </header>
+
+  <main class="shell" id="library"></main>
+
+  <script>
+    const categories = [
+      {
+        name: 'Modern Core App Styles',
+        items: [
+          ['Apple-like Glass', 'Polished, airy, translucent, Apple Photos / macOS inspired interface.', ['glass','apple','modern','desktop'], 's-glass'],
+          ['Clean SaaS Dashboard', 'Professional software dashboard with clean cards, strong spacing, and clear hierarchy.', ['saas','dashboard','business'], 's-saas'],
+          ['Soft Minimal', 'Calm neutral UI with lots of whitespace, subtle borders, and readable layouts.', ['minimal','clean','soft'], 's-minimal'],
+          ['Premium Dark Mode', 'Sleek dark UI with high contrast, deep panels, and subtle glowing accents.', ['dark','premium','modern'], 's-dark'],
+          ['Aurora Gradient', 'Modern gradients, gentle glow, glass cards, and energetic depth.', ['gradient','aurora','landing'], 's-aurora'],
+          ['Neumorphic Soft UI', 'Soft raised controls, pill buttons, gentle shadows, and tactile panels.', ['soft-ui','neumorphic'], 's-clay'],
+          ['Material You Inspired', 'Rounded Android-style design with expressive color and friendly spacing.', ['material','android','mobile'], 's-android'],
+          ['iOS Native Inspired', 'Clean mobile-first cards, blur, large titles, and rounded controls.', ['ios','mobile','apple'], 's-ios']
+        ]
+      },
+      {
+        name: 'Professional & Enterprise',
+        items: [
+          ['Enterprise Admin Console', 'Dense but clean internal tool design for IT, users, access, tickets, logs, and reports.', ['enterprise','admin','it'], 's-saas'],
+          ['Executive Command Center', 'High-level KPI interface with polished charts, status cards, and decision-focused layout.', ['executive','dashboard','analytics'], 's-dark'],
+          ['IT Service Desk Portal', 'Support-ticket style interface with queues, status badges, quick actions, and clean forms.', ['it','tickets','portal'], 's-saas'],
+          ['Network Monitoring Console', 'Live status board with devices, alerts, uptime, and map/list views.', ['network','monitoring','alerts'], 's-dark'],
+          ['Cybersecurity SOC Dashboard', 'Security operations UI with event streams, severity colors, and investigation panels.', ['security','soc','cyber'], 's-cyber'],
+          ['Database Admin Tool', 'Structured tables, query panels, schema browser, logs, and safe admin controls.', ['database','admin','tables'], 's-terminal'],
+          ['HR Employee Portal', 'Friendly workplace portal for employee records, requests, onboarding, and approvals.', ['hr','portal','business'], 's-soft'],
+          ['Finance Operations Dashboard', 'Reliable financial UI with summaries, tables, projections, and audit-friendly spacing.', ['finance','business','data'], 's-finance']
+        ]
+      },
+      {
+        name: 'Creative & Portfolio',
+        items: [
+          ['Editorial Magazine', 'Large typography, dramatic layout, strong imagery, and high-end publication feel.', ['editorial','portfolio','content'], 's-editorial'],
+          ['Designer Portfolio', 'Minimal creative portfolio with project cards, motion, case studies, and strong typography.', ['portfolio','creative','designer'], 's-minimal'],
+          ['Agency Landing Page', 'Bold hero section, motion-ready cards, client logos, and conversion-focused sections.', ['agency','landing','marketing'], 's-aurora'],
+          ['Photography Gallery', 'Image-first grid, elegant spacing, timeline browsing, and quiet controls.', ['photos','gallery','apple'], 's-glass'],
+          ['Video Creator Studio', 'Media-management UI with preview panels, timeline, asset library, and export controls.', ['video','creator','studio'], 's-dark'],
+          ['Music Visualizer App', 'Audio-reactive aesthetic with glow, spectrum panels, and immersive controls.', ['music','audio','visualizer'], 's-neon'],
+          ['Art Museum Digital Guide', 'Elegant cultural interface with warm paper tones, captions, and calm navigation.', ['museum','art','editorial'], 's-editorial'],
+          ['Brand Moodboard Builder', 'Visual canvas with color palettes, draggable cards, notes, and asset groups.', ['moodboard','brand','creative'], 's-playful']
+        ]
+      },
+      {
+        name: 'Bold, Experimental & Trendy',
+        items: [
+          ['Neo-Brutalist', 'Chunky borders, loud colors, hard shadows, playful buttons, and unapologetic contrast.', ['brutalist','bold','experimental'], 's-brutal'],
+          ['Cyberpunk HUD', 'Futuristic panels, neon lines, angled shapes, dark background, and sci-fi controls.', ['cyberpunk','hud','gaming'], 's-cyber'],
+          ['Retro 70s Web', 'Warm colors, rounded typography, vintage layout, and nostalgic graphics.', ['retro','70s','playful'], 's-retro'],
+          ['Y2K Chrome', 'Shiny gradients, metallic panels, bubble controls, and early-2000s tech vibe.', ['y2k','chrome','trendy'], 's-neon'],
+          ['Terminal Hacker', 'Monospace interface, command palette, green text, logs, and keyboard-first controls.', ['terminal','developer','cli'], 's-terminal'],
+          ['Liquid Blob UI', 'Organic blob shapes, flowing gradients, pill controls, and soft animation-friendly layout.', ['blob','organic','gradient'], 's-aurora'],
+          ['Maximalist Color Pop', 'Bright, expressive, animated, sticker-like UI with energetic hierarchy.', ['maximalist','colorful','playful'], 's-playful'],
+          ['Futuristic Glass HUD', 'Transparent panels, scanning lines, data overlays, and motion-ready microinteractions.', ['future','hud','glass'], 's-glass']
+        ]
+      },
+      {
+        name: 'Elegant, Luxury & Premium',
+        items: [
+          ['Luxury Black & Gold', 'Premium dark interface with gold accents, serif headings, and high-end spacing.', ['luxury','gold','premium'], 's-luxury'],
+          ['Boutique Hotel', 'Warm elegant booking interface with soft imagery, refined typography, and calm panels.', ['hotel','luxury','booking'], 's-editorial'],
+          ['Fine Dining Restaurant', 'Elegant menu layout, reservation CTA, warm lighting tones, and premium food presentation.', ['restaurant','luxury','food'], 's-luxury'],
+          ['High-End Real Estate', 'Large property photography, refined search filters, map cards, and premium listing pages.', ['real-estate','luxury','property'], 's-soft'],
+          ['Luxury Ecommerce', 'Product-focused, editorial shopping UI with refined cards and minimal checkout flow.', ['ecommerce','luxury','shopping'], 's-luxury'],
+          ['Watch Brand Microsite', 'Dark premium hero, precise specs, product storytelling, and refined animations.', ['watch','brand','premium'], 's-luxury'],
+          ['Spa & Wellness Premium', 'Soft calm layout with warm neutrals, service cards, and peaceful booking flow.', ['spa','wellness','calm'], 's-health'],
+          ['Premium Coffee Brand', 'Warm cafe tones, product cards, story blocks, and handcrafted feeling.', ['coffee','brand','warm'], 's-editorial']
+        ]
+      },
+      {
+        name: 'Industry-Specific Apps',
+        items: [
+          ['Healthcare Patient Portal', 'Trustworthy, accessible healthcare UI with appointments, records, messages, and reminders.', ['healthcare','portal','accessible'], 's-health'],
+          ['Fitness Tracking App', 'Motivational dashboard with progress rings, plans, history, and friendly cards.', ['fitness','tracking','mobile'], 's-health'],
+          ['Education LMS', 'Course cards, lessons, progress tracking, quizzes, and student-friendly navigation.', ['education','courses','learning'], 's-saas'],
+          ['Restaurant Ordering Kiosk', 'Large touch-friendly menu, category filters, cart, and simple checkout.', ['restaurant','kiosk','touch'], 's-playful'],
+          ['Hotel Booking App', 'Search-first interface with dates, room cards, amenities, and clean checkout.', ['hotel','booking','travel'], 's-soft'],
+          ['Travel Planner', 'Map/list hybrid, itinerary cards, budget, packing list, and day-by-day timeline.', ['travel','planner','maps'], 's-aurora'],
+          ['Automotive Service App', 'Vehicle profile, service timeline, appointment booking, and maintenance cards.', ['automotive','service','tools'], 's-dark'],
+          ['Smart Home Dashboard', 'Device cards, room groups, energy monitoring, automations, and quick toggles.', ['smart-home','iot','dashboard'], 's-ios']
+        ]
+      },
+      {
+        name: 'Data, Productivity & Tools',
+        items: [
+          ['Spreadsheet Alternative', 'Document/table workspace with clean toolbar, sheets, formulas, and collaboration-style UI.', ['spreadsheet','productivity','office'], 's-soft'],
+          ['Notion-like Workspace', 'Sidebar pages, blocks, clean editor, databases, and minimal writing environment.', ['workspace','notes','productivity'], 's-minimal'],
+          ['Calendar Scheduler', 'Week/month views, event cards, smart availability, and friendly empty states.', ['calendar','scheduler','productivity'], 's-ios'],
+          ['File Manager Pro', 'Split-pane file browser, breadcrumbs, previews, tags, and batch actions.', ['files','manager','desktop'], 's-saas'],
+          ['Backup Utility', 'Simple local backup UI with source/destination cards, progress, logs, and restore controls.', ['backup','utility','local'], 's-soft'],
+          ['Media Library Manager', 'Thumbnail grid, date timeline, filters, batch actions, and non-blocking folder scanning.', ['media','photos','videos'], 's-glass'],
+          ['Developer DevTools Panel', 'Hidden advanced panel with logs, toggles, performance, diagnostics, and safe reset tools.', ['developer','tools','debug'], 's-terminal'],
+          ['Automation Builder', 'No-code workflow interface with triggers, actions, cards, and readable rule summaries.', ['automation','workflow','no-code'], 's-saas']
+        ]
+      },
+      {
+        name: 'Game, Entertainment & Immersive',
+        items: [
+          ['Game Launcher', 'Library grid, hero artwork, install/play buttons, achievements, and dark polished layout.', ['game','launcher','entertainment'], 's-dark'],
+          ['Arcade Cabinet UI', 'Big colorful menu, joystick-friendly navigation, pixel accents, and animated selections.', ['arcade','retro','game'], 's-retro'],
+          ['Streaming App', 'Movie cards, hero carousel, categories, watchlist, and TV-friendly focus states.', ['streaming','video','tv'], 's-dark'],
+          ['Karaoke Queue App', 'Search, singer queue, now playing, large readable stage view, and fun motion.', ['karaoke','music','queue'], 's-neon'],
+          ['Podcast App', 'Clean episode list, player controls, show pages, and listening progress.', ['podcast','audio','media'], 's-ios'],
+          ['Comic Reader', 'Library shelves, issue cards, reading mode, dark/light themes, and bold artwork.', ['comic','reader','media'], 's-playful'],
+          ['VR Control Panel', 'Futuristic spatial dashboard with device status, calibration, and large controls.', ['vr','futuristic','control'], 's-cyber'],
+          ['Esports Match Center', 'Live scores, brackets, team cards, stats, and energetic dark theme.', ['esports','sports','dashboard'], 's-neon']
+        ]
+      },
+      {
+        name: 'Forms, Portals & Public Sites',
+        items: [
+          ['Government Service Portal', 'Accessible, plain-language forms, clear progress steps, and trustworthy layout.', ['government','forms','accessible'], 's-soft'],
+          ['Member Portal', 'Account dashboard, payments, statements, reservations, notices, and simple help sections.', ['member','portal','account'], 's-saas'],
+          ['Nonprofit Donation Site', 'Warm storytelling layout with impact cards, donation flow, and trust signals.', ['nonprofit','donation','website'], 's-health'],
+          ['Event Registration', 'Landing page plus ticket cards, schedule, speakers, and smooth registration form.', ['event','registration','landing'], 's-aurora'],
+          ['Survey Builder', 'Question editor, preview panel, logic rules, and simple results dashboard.', ['survey','forms','builder'], 's-saas'],
+          ['Customer Support Help Center', 'Search-first knowledge base, categories, article cards, and contact options.', ['support','help-center','docs'], 's-minimal'],
+          ['Login/Auth Flow', 'Beautiful sign-in, account creation, recovery, MFA, and clear error states.', ['login','auth','forms'], 's-glass'],
+          ['Checkout Flow', 'Simple cart, shipping, payment, review, progress steps, and trust badges.', ['checkout','ecommerce','forms'], 's-soft']
+        ]
+      },
+      {
+        name: 'Mood-Based Visual Directions',
+        items: [
+          ['Calm Wellness', 'Peaceful interface with soft greens, slow visual rhythm, rounded cards, and friendly wording.', ['calm','wellness','soft'], 's-health'],
+          ['Serious Professional', 'Conservative business UI with strong hierarchy, tables, restrained color, and reliable layout.', ['professional','serious','business'], 's-saas'],
+          ['Friendly Beginner', 'Extremely simple UI with plain labels, helpful hints, forgiving errors, and big clear controls.', ['beginner','friendly','simple'], 's-playful'],
+          ['Technical Expert', 'Dense power-user UI with shortcuts, logs, command palette, and advanced controls.', ['technical','expert','developer'], 's-terminal'],
+          ['Warm Human', 'Soft warm colors, personable cards, approachable copy, and inviting spacing.', ['warm','friendly','human'], 's-editorial'],
+          ['Fast Performance Utility', 'Lightweight UI that prioritizes speed, progress, virtual lists, and low resource usage.', ['performance','utility','fast'], 's-minimal'],
+          ['Premium Minimal Black', 'Mostly black interface with precise spacing, restrained controls, and luxurious feeling.', ['black','minimal','premium'], 's-luxury'],
+          ['Colorful Family Friendly', 'Bright, safe, readable design with large controls and playful iconography.', ['family','colorful','friendly'], 's-playful']
+        ]
+      },
+      {
+        name: 'Layout Patterns',
+        items: [
+          ['Card Grid Layout', 'Responsive grid with cards, filters, sorting, badges, and clean empty states.', ['grid','cards','responsive'], 's-soft'],
+          ['Split Pane Workspace', 'Left list, right detail view, resizable panels, and keyboard-friendly navigation.', ['split-pane','workspace','desktop'], 's-saas'],
+          ['Timeline Interface', 'Date-based vertical or horizontal timeline with grouped events and jump navigation.', ['timeline','history','media'], 's-glass'],
+          ['Map + List Layout', 'Map on one side, searchable cards on the other, filters, and selected states.', ['map','list','travel'], 's-aurora'],
+          ['Kanban Board', 'Columns, draggable cards, labels, due dates, quick add, and clean board controls.', ['kanban','project','cards'], 's-saas'],
+          ['Wizard Step Flow', 'Step-by-step process with progress indicator, validation, and friendly guidance.', ['wizard','forms','setup'], 's-ios'],
+          ['Command Palette App', 'Keyboard-first interface with search, quick actions, recent commands, and shortcuts.', ['command','keyboard','power-user'], 's-terminal'],
+          ['TV / Kiosk Layout', 'Large text, large buttons, remote/touch-friendly spacing, and high contrast states.', ['kiosk','tv','touch'], 's-dark']
+        ]
+      }
+    ];
+
+    function promptFor(item, category) {
+      const [name, desc, tags] = item;
+      return `Use a ${name} UI design direction for this project. Create a polished, production-quality interface inspired by: ${desc} The design should feel intentional, modern, evenly spaced, and user-friendly. Use strong visual hierarchy, consistent spacing, rounded corners where appropriate, clear readable labels, helpful empty states, hover/focus/active states, loading/progress states for anything that takes time, and responsive behavior for desktop and smaller screens. Avoid clutter, overlapping elements, tiny controls, confusing technical wording, or unfinished placeholder styling. Keep the layout organized and make the final result feel like a real app, not a rough demo. Category: ${category}. Helpful keywords: ${tags.join(', ')}.`;
+    }
+
+    const library = document.getElementById('library');
+    const chips = document.getElementById('chips');
+    const search = document.getElementById('search');
+    const count = document.getElementById('count');
+    let activeCategory = 'All';
+
+    function renderChips() {
+      const names = ['All', ...categories.map(c => c.name)];
+      chips.innerHTML = names.map(n => `<button class="chip ${n===activeCategory?'active':''}" data-cat="${n}">${n}</button>`).join('');
+      chips.querySelectorAll('button').forEach(btn => btn.addEventListener('click', () => {
+        activeCategory = btn.dataset.cat;
+        render();
+        renderChips();
+      }));
+    }
+
+    function render() {
+      const q = search.value.trim().toLowerCase();
+      let total = 0;
+      library.innerHTML = '';
+      categories.forEach(category => {
+        if (activeCategory !== 'All' && activeCategory !== category.name) return;
+        const matches = category.items.filter(item => {
+          const text = [category.name, item[0], item[1], item[2].join(' ')].join(' ').toLowerCase();
+          return !q || text.includes(q);
+        });
+        if (!matches.length) return;
+        total += matches.length;
+        const section = document.createElement('section');
+        section.innerHTML = `<div class="category-title"><h2>${category.name}</h2><span>${matches.length} styles</span></div><div class="grid"></div>`;
+        const grid = section.querySelector('.grid');
+        matches.forEach(item => {
+          const p = promptFor(item, category.name);
+          const card = document.createElement('article');
+          card.className = 'card';
+          card.dataset.prompt = p;
+          card.innerHTML = `
+            <div class="preview ${item[3]}">
+              <div class="mock">
+                <div class="bar"></div><div class="bar small"></div>
+                <div class="row"><div class="tile"></div><div class="tile dark"></div></div>
+              </div>
+            </div>
+            <div class="content">
+              <div class="eyebrow">${category.name}</div>
+              <h3>${item[0]}</h3>
+              <p class="desc">${item[1]}</p>
+              <div class="tags">${item[2].map(t => `<span class="tag">${t}</span>`).join('')}</div>
+              <pre>${p}</pre>
+              <div class="actions"><button class="copy">Copy prompt</button><span class="usage">Best for: ${item[2].slice(0,2).join(' + ')}</span></div>
+            </div>`;
+          grid.appendChild(card);
+        });
+        library.appendChild(section);
+      });
+      count.textContent = `${total} design prompts`;
+      document.querySelectorAll('button.copy').forEach(btn => btn.onclick = async () => {
+        const prompt = btn.closest('.card').dataset.prompt;
+        try {
+          await navigator.clipboard.writeText(prompt);
+          const old = btn.textContent;
+          btn.textContent = 'Copied';
+          setTimeout(() => btn.textContent = old, 900);
+        } catch (e) {
+          alert(prompt);
+        }
+      });
+    }
+
+    search.addEventListener('input', render);
+    renderChips();
+    render();
+  </script>
+</body>
+</html>
