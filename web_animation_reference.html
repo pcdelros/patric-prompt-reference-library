@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Web Animation Style Reference + Prompt Guide</title>
+  <style>
+    :root {
+      --bg: #0c0f14;
+      --panel: rgba(255,255,255,0.075);
+      --panel-strong: rgba(255,255,255,0.115);
+      --text: #f3f6fb;
+      --muted: #aeb8c8;
+      --line: rgba(255,255,255,0.14);
+      --accent: #8cc8ff;
+      --accent2: #b797ff;
+      --accent3: #6fffd2;
+      --shadow: 0 20px 80px rgba(0,0,0,0.45);
+      --radius-xl: 30px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+      --font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      color: var(--text);
+      background:
+        radial-gradient(circle at 20% 0%, rgba(140,200,255,0.22), transparent 30%),
+        radial-gradient(circle at 90% 10%, rgba(183,151,255,0.22), transparent 32%),
+        linear-gradient(135deg, #090b10 0%, #111827 45%, #0c0f14 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent 75%);
+      z-index: -1;
+    }
+
+    a { color: inherit; }
+
+    .wrap {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      padding: 72px 0 32px;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .hero-card, .preview-card, .section, .nav, .prompt-builder, .footer {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.055));
+      backdrop-filter: blur(22px);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius-xl);
+    }
+
+    .hero-card { padding: 42px; }
+    .eyebrow {
+      color: var(--accent3);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-weight: 750;
+      font-size: 12px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(40px, 6vw, 78px);
+      line-height: 0.95;
+      letter-spacing: -0.065em;
+    }
+    .hero p {
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.7;
+      max-width: 780px;
+      margin: 24px 0 0;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.09);
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 700;
+      transition: transform 220ms ease, background 220ms ease, border-color 220ms ease;
+    }
+    .btn:hover { transform: translateY(-2px); background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.28); }
+    .btn.primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #07111f; border-color: transparent; }
+
+    .preview-card {
+      min-height: 430px;
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .orb {
+      position: absolute;
+      width: 210px;
+      height: 210px;
+      border-radius: 999px;
+      filter: blur(3px);
+      opacity: 0.8;
+      background: radial-gradient(circle at 35% 30%, #fff, var(--accent) 28%, transparent 70%);
+      animation: floatOrb 7s ease-in-out infinite;
+    }
+    .orb.two {
+      right: -60px; bottom: 20px;
+      background: radial-gradient(circle at 40% 40%, #fff, var(--accent2) 30%, transparent 70%);
+      animation-delay: -2s;
+    }
+    .orb.one { left: -52px; top: 60px; }
+    .mini-window {
+      position: relative;
+      margin-top: 42px;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(12,15,20,0.72);
+      overflow: hidden;
+      z-index: 2;
+      box-shadow: 0 24px 70px rgba(0,0,0,0.42);
+      animation: riseIn 900ms cubic-bezier(.2,.9,.2,1) both;
+    }
+    .mini-top {
+      height: 48px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+    .dot { width: 11px; height: 11px; border-radius: 50%; background: rgba(255,255,255,0.36); }
+    .mini-body { padding: 22px; }
+    .pulse-line {
+      height: 12px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.12), rgba(255,255,255,0.28), rgba(255,255,255,0.12));
+      background-size: 200% 100%;
+      margin: 12px 0;
+      animation: shimmer 1.6s linear infinite;
+    }
+    .pulse-line.short { width: 64%; }
+    .cards-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 22px; }
+    .tiny-card {
+      min-height: 88px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.09);
+      border: 1px solid rgba(255,255,255,0.1);
+      transform-origin: bottom center;
+      animation: staggerPop 1s cubic-bezier(.2,.9,.2,1) both;
+    }
+    .tiny-card:nth-child(2) { animation-delay: 110ms; }
+    .tiny-card:nth-child(3) { animation-delay: 220ms; }
+
+    .nav {
+      position: sticky;
+      top: 14px;
+      z-index: 20;
+      padding: 12px;
+      margin: 18px 0 26px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .nav a {
+      text-decoration: none;
+      padding: 10px 12px;
+      color: var(--muted);
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 700;
+      transition: background 180ms ease, color 180ms ease;
+    }
+    .nav a:hover { color: var(--text); background: rgba(255,255,255,0.1); }
+
+    .section {
+      padding: 30px;
+      margin: 24px 0;
+    }
+    .section-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 22px;
+    }
+    .section h2 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 44px);
+      letter-spacing: -0.045em;
+    }
+    .section .summary {
+      max-width: 520px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .style-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.065);
+      padding: 18px;
+      min-height: 280px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .demo {
+      height: 116px;
+      border-radius: 18px;
+      background: rgba(0,0,0,0.2);
+      border: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .style-card h3 { margin: 0; font-size: 20px; letter-spacing: -0.02em; }
+    .style-card p { margin: 0; color: var(--muted); line-height: 1.55; font-size: 14.5px; }
+    .prompt {
+      margin-top: auto;
+      border-radius: 14px;
+      background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #dfeaff;
+      padding: 12px;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    .prompt b { color: var(--accent3); }
+
+    .token {
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 15px 35px rgba(140,200,255,0.25);
+    }
+    .fade-demo { animation: fadeInOut 2.4s ease-in-out infinite; }
+    .slide-demo { animation: slideSide 2.2s cubic-bezier(.2,.9,.2,1) infinite; }
+    .scale-demo { animation: scaleBreath 1.8s ease-in-out infinite; }
+    .rotate-demo { animation: rotateSoft 2.4s ease-in-out infinite; }
+    .bounce-demo { animation: bounceSoft 1.4s cubic-bezier(.34,1.56,.64,1) infinite; }
+    .spring-demo { animation: springPop 1.8s cubic-bezier(.2,1.6,.2,1) infinite; }
+    .flip-demo { animation: flipCard 2.2s ease-in-out infinite; transform-style: preserve-3d; }
+    .blur-demo { animation: blurReveal 2.5s ease-in-out infinite; }
+    .glow-demo { animation: glowPulse 1.8s ease-in-out infinite; }
+    .elastic-demo { animation: elastic 2.2s ease-in-out infinite; }
+    .parallax-demo::before, .parallax-demo::after {
+      content: ""; position: absolute; border-radius: 22px; inset: 20px 34px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1);
+    }
+    .parallax-demo::after { inset: 38px 58px; background: linear-gradient(135deg, rgba(140,200,255,0.5), rgba(183,151,255,0.35)); animation: parallaxLayer 2.6s ease-in-out infinite; }
+    .parallax-demo .token { position: relative; z-index: 2; animation: parallaxFront 2.6s ease-in-out infinite; }
+    .morph-demo { animation: morphShape 3s ease-in-out infinite; }
+    .gradient-demo { background: linear-gradient(135deg, #8cc8ff, #b797ff, #6fffd2, #8cc8ff); background-size: 300% 300%; animation: gradientShift 3s ease infinite; }
+    .shimmer-demo {
+      width: 70%; height: 18px; border-radius: 999px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.08), rgba(255,255,255,0.45), rgba(255,255,255,0.08));
+      background-size: 220% 100%; animation: shimmer 1.25s linear infinite;
+    }
+    .type-demo { font-weight: 850; font-size: 24px; border-right: 3px solid var(--accent3); white-space: nowrap; overflow: hidden; width: 0; animation: typewrite 3s steps(13) infinite; }
+    .counter-demo { font-size: 34px; font-weight: 900; animation: numberPulse 1.4s ease-in-out infinite; }
+    .line-demo {
+      width: 80%; height: 80%;
+    }
+    .line-demo path { stroke-dasharray: 240; stroke-dashoffset: 240; animation: drawLine 2.2s ease-in-out infinite; }
+    .reveal-demo {
+      width: 76%; height: 52px; border-radius: 16px; background: linear-gradient(135deg, var(--accent), var(--accent2));
+      clip-path: inset(0 100% 0 0 round 16px); animation: clipReveal 2.4s ease-in-out infinite;
+    }
+    .liquid-demo { border-radius: 44% 56% 55% 45% / 45% 44% 56% 55%; animation: liquid 3.6s ease-in-out infinite; }
+    .magnetic-demo { animation: magnetic 2.5s ease-in-out infinite; }
+    .tilt-demo { animation: tilt3d 2.7s ease-in-out infinite; }
+    .shake-demo { animation: shake 1.8s ease-in-out infinite; }
+    .loader-demo {
+      width: 58px; height: 58px; border-radius: 50%; border: 5px solid rgba(255,255,255,0.12); border-top-color: var(--accent3); animation: spin 900ms linear infinite;
+    }
+    .dots-demo { display: flex; gap: 9px; }
+    .dots-demo span { width: 12px; height: 12px; border-radius: 50%; background: var(--accent); animation: dotWave 900ms ease-in-out infinite; }
+    .dots-demo span:nth-child(2) { animation-delay: 120ms; }
+    .dots-demo span:nth-child(3) { animation-delay: 240ms; }
+    .toast-demo { width: 74%; padding: 14px; border-radius: 16px; background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.18); animation: toastIn 2.4s ease-in-out infinite; }
+    .modal-demo { width: 72%; height: 70px; border-radius: 18px; background: rgba(255,255,255,0.14); animation: modalIn 2.4s cubic-bezier(.2,.9,.2,1) infinite; }
+    .page-demo { width: 70%; height: 72px; border-radius: 18px; background: linear-gradient(135deg, rgba(140,200,255,0.38), rgba(183,151,255,0.38)); animation: pageTransition 2.7s ease-in-out infinite; }
+    .scroll-demo { width: 70%; height: 82px; border-radius: 18px; background: rgba(255,255,255,0.09); position: relative; overflow: hidden; }
+    .scroll-demo::after { content:""; position:absolute; inset: 18px; border-radius: 14px; background: linear-gradient(135deg, var(--accent), var(--accent2)); animation: scrollReveal 2.4s ease-in-out infinite; }
+    .hover-demo { transition: transform 220ms ease, box-shadow 220ms ease; animation: hoverLoop 2s ease-in-out infinite; }
+    .bg-demo { position:absolute; inset:0; background: radial-gradient(circle at 20% 20%, rgba(140,200,255,0.6), transparent 30%), radial-gradient(circle at 80% 70%, rgba(183,151,255,0.55), transparent 35%); animation: bgPan 5s linear infinite; }
+    .particle-demo span { position:absolute; width:8px; height:8px; border-radius:50%; background:var(--accent3); animation: particle 2s ease-in-out infinite; }
+    .particle-demo span:nth-child(1){left:24%;top:60%;animation-delay:0ms}.particle-demo span:nth-child(2){left:52%;top:50%;animation-delay:180ms}.particle-demo span:nth-child(3){left:74%;top:62%;animation-delay:340ms}.particle-demo span:nth-child(4){left:38%;top:35%;animation-delay:520ms}
+
+    .prompt-builder {
+      padding: 32px;
+      margin: 28px 0;
+    }
+    .prompt-builder h2 { margin: 0 0 14px; font-size: 38px; letter-spacing: -0.04em; }
+    .big-prompt {
+      margin-top: 18px;
+      padding: 20px;
+      border-radius: 18px;
+      background: rgba(0,0,0,0.34);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: #e9f2ff;
+      line-height: 1.7;
+      font-size: 15px;
+    }
+    .table-wrap { overflow-x: auto; border-radius: 18px; border: 1px solid rgba(255,255,255,0.12); }
+    table { width: 100%; border-collapse: collapse; min-width: 840px; background: rgba(0,0,0,0.18); }
+    th, td { padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.1); text-align: left; vertical-align: top; }
+    th { color: var(--accent3); font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; }
+    td { color: var(--muted); line-height: 1.5; }
+    td strong { color: var(--text); }
+
+    .footer { padding: 26px; margin: 34px 0 60px; color: var(--muted); line-height: 1.6; }
+
+    @keyframes floatOrb { 0%,100%{transform:translate3d(0,0,0) scale(1)} 50%{transform:translate3d(35px,28px,0) scale(1.12)} }
+    @keyframes riseIn { from{opacity:0; transform:translateY(26px) scale(.96)} to{opacity:1; transform:translateY(0) scale(1)} }
+    @keyframes shimmer { to{background-position:-200% 0} }
+    @keyframes staggerPop { from{opacity:0; transform:translateY(20px) scale(.92)} to{opacity:1; transform:translateY(0) scale(1)} }
+    @keyframes fadeInOut { 0%,100%{opacity:.25} 50%{opacity:1} }
+    @keyframes slideSide { 0%,100%{transform:translateX(-34px)} 50%{transform:translateX(34px)} }
+    @keyframes scaleBreath { 0%,100%{transform:scale(.82)} 50%{transform:scale(1.14)} }
+    @keyframes rotateSoft { 0%,100%{transform:rotate(-10deg)} 50%{transform:rotate(18deg)} }
+    @keyframes bounceSoft { 0%,100%{transform:translateY(18px)} 50%{transform:translateY(-18px)} }
+    @keyframes springPop { 0%,100%{transform:scale(.82)} 35%{transform:scale(1.18)} 55%{transform:scale(.96)} 75%{transform:scale(1.04)} }
+    @keyframes flipCard { 0%,100%{transform:rotateY(0deg)} 50%{transform:rotateY(180deg)} }
+    @keyframes blurReveal { 0%,100%{filter:blur(10px); opacity:.35; transform:scale(.92)} 50%{filter:blur(0); opacity:1; transform:scale(1)} }
+    @keyframes glowPulse { 0%,100%{box-shadow:0 0 0 rgba(140,200,255,0)} 50%{box-shadow:0 0 42px rgba(140,200,255,.8)} }
+    @keyframes elastic { 0%,100%{transform:scale(1,1)} 35%{transform:scale(1.22,.78)} 55%{transform:scale(.86,1.14)} 75%{transform:scale(1.06,.96)} }
+    @keyframes parallaxLayer { 0%,100%{transform:translateX(-10px)} 50%{transform:translateX(18px)} }
+    @keyframes parallaxFront { 0%,100%{transform:translateX(20px) translateY(8px)} 50%{transform:translateX(-18px) translateY(-8px)} }
+    @keyframes morphShape { 0%,100%{border-radius:16px} 33%{border-radius:50% 20% 45% 24%} 66%{border-radius:24% 48% 22% 55%} }
+    @keyframes gradientShift { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+    @keyframes typewrite { 0%{width:0} 45%,65%{width:13ch} 100%{width:0} }
+    @keyframes numberPulse { 0%,100%{transform:scale(1); opacity:.65} 50%{transform:scale(1.13); opacity:1} }
+    @keyframes drawLine { 0%{stroke-dashoffset:240; opacity:.5} 50%{stroke-dashoffset:0; opacity:1} 100%{stroke-dashoffset:-240; opacity:.5} }
+    @keyframes clipReveal { 0%,100%{clip-path:inset(0 100% 0 0 round 16px)} 50%{clip-path:inset(0 0 0 0 round 16px)} }
+    @keyframes liquid { 0%,100%{border-radius:44% 56% 55% 45% / 45% 44% 56% 55%; transform:rotate(0deg)} 50%{border-radius:57% 43% 36% 64% / 61% 37% 63% 39%; transform:rotate(8deg)} }
+    @keyframes magnetic { 0%,100%{transform:translate(0,0)} 25%{transform:translate(24px,-8px)} 50%{transform:translate(0,12px)} 75%{transform:translate(-24px,-6px)} }
+    @keyframes tilt3d { 0%,100%{transform:perspective(500px) rotateX(0) rotateY(0)} 50%{transform:perspective(500px) rotateX(18deg) rotateY(-18deg)} }
+    @keyframes shake { 0%,100%{transform:translateX(0)} 15%{transform:translateX(-7px)} 30%{transform:translateX(7px)} 45%{transform:translateX(-4px)} 60%{transform:translateX(4px)} }
+    @keyframes spin { to{transform:rotate(360deg)} }
+    @keyframes dotWave { 0%,100%{transform:translateY(0); opacity:.45} 50%{transform:translateY(-16px); opacity:1} }
+    @keyframes toastIn { 0%,100%{opacity:0; transform:translateY(24px)} 20%,75%{opacity:1; transform:translateY(0)} }
+    @keyframes modalIn { 0%,100%{opacity:0; transform:scale(.86) translateY(16px)} 25%,75%{opacity:1; transform:scale(1) translateY(0)} }
+    @keyframes pageTransition { 0%,100%{opacity:0; transform:translateX(50px) scale(.96)} 35%,70%{opacity:1; transform:translateX(0) scale(1)} }
+    @keyframes scrollReveal { 0%{opacity:0; transform:translateY(45px)} 45%,75%{opacity:1; transform:translateY(0)} 100%{opacity:0; transform:translateY(-30px)} }
+    @keyframes hoverLoop { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px); box-shadow:0 20px 40px rgba(140,200,255,.25)} }
+    @keyframes bgPan { 0%,100%{transform:translateX(0) scale(1.08)} 50%{transform:translateX(-32px) scale(1.12)} }
+    @keyframes particle { 0%{opacity:0; transform:translateY(24px) scale(.6)} 40%{opacity:1} 100%{opacity:0; transform:translateY(-38px) scale(1.2)} }
+
+    @media (max-width: 920px) {
+      .hero { grid-template-columns: 1fr; padding-top: 34px; }
+      .grid { grid-template-columns: repeat(2, 1fr); }
+      .section-head { display: block; }
+      .section .summary { margin-top: 10px; }
+    }
+    @media (max-width: 640px) {
+      .wrap { width: min(100% - 22px, 1180px); }
+      .hero-card, .section, .prompt-builder { padding: 22px; border-radius: 22px; }
+      .grid { grid-template-columns: 1fr; }
+      .preview-card { min-height: 350px; }
+      .nav { position: static; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <div class="hero-card">
+        <div class="eyebrow">Web Animation Reference Library</div>
+        <h1>Animation styles + prompts for modern websites.</h1>
+        <p>This file is a practical reference guide for asking ChatGPT to create web animations. Each card explains the style, when to use it, and the exact kind of prompt wording that gets that result.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#motion-basics">Browse styles</a>
+          <a class="btn" href="#prompt-builder">Copy master prompt</a>
+          <a class="btn" href="#rules">Animation rules</a>
+        </div>
+      </div>
+      <div class="preview-card" aria-label="Animated preview panel">
+        <div class="orb one"></div>
+        <div class="orb two"></div>
+        <div class="mini-window">
+          <div class="mini-top"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+          <div class="mini-body">
+            <div class="pulse-line"></div>
+            <div class="pulse-line short"></div>
+            <div class="cards-row">
+              <div class="tiny-card"></div>
+              <div class="tiny-card"></div>
+              <div class="tiny-card"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <nav class="nav">
+      <a href="#motion-basics">Motion basics</a>
+      <a href="#reveals">Reveals</a>
+      <a href="#micro">Micro-interactions</a>
+      <a href="#loading">Loading</a>
+      <a href="#page">Page transitions</a>
+      <a href="#visual">Visual effects</a>
+      <a href="#prompt-builder">Prompt guide</a>
+      <a href="#rules">Rules</a>
+    </nav>
+
+    <section class="section" id="motion-basics">
+      <div class="section-head">
+        <h2>1. Motion basics</h2>
+        <p class="summary">Core animation types used everywhere: buttons, cards, modals, menus, images, dashboards, landing pages, and app interfaces.</p>
+      </div>
+      <div class="grid">
+        <article class="style-card"><div class="demo"><div class="token fade-demo"></div></div><h3>Fade</h3><p>Softly changes opacity. Best for clean, calm, professional UI where motion should not distract.</p><div class="prompt"><b>Prompt:</b> Use subtle fade-in and fade-out animations with smooth easing and no harsh movement.</div></article>
+        <article class="style-card"><div class="demo"><div class="token slide-demo"></div></div><h3>Slide</h3><p>Moves elements from one side or direction. Great for drawers, cards, menus, alerts, and onboarding screens.</p><div class="prompt"><b>Prompt:</b> Add smooth slide-in animations from the bottom/right with a polished app-like feel.</div></article>
+        <article class="style-card"><div class="demo"><div class="token scale-demo"></div></div><h3>Scale / Zoom</h3><p>Grows or shrinks an element. Useful for modals, selected cards, image previews, and hover effects.</p><div class="prompt"><b>Prompt:</b> Use gentle scale animations for cards and popups, with a smooth zoom-in effect on open.</div></article>
+        <article class="style-card"><div class="demo"><div class="token rotate-demo"></div></div><h3>Rotate</h3><p>Rotates icons, loaders, toggles, badges, and decorative elements. Use lightly for professional designs.</p><div class="prompt"><b>Prompt:</b> Add small rotation animations to icons and decorative UI pieces without making it feel playful.</div></article>
+        <article class="style-card"><div class="demo"><div class="token bounce-demo"></div></div><h3>Bounce</h3><p>Playful movement that lands with energy. Best for fun apps, success moments, empty states, and badges.</p><div class="prompt"><b>Prompt:</b> Use a light bounce animation for important success states, but keep it refined and not childish.</div></article>
+        <article class="style-card"><div class="demo"><div class="token spring-demo"></div></div><h3>Spring</h3><p>Feels natural and physical, like iOS motion. Excellent for modern mobile-style interfaces.</p><div class="prompt"><b>Prompt:</b> Use spring-based motion similar to Apple/iOS, with natural easing and soft overshoot.</div></article>
+        <article class="style-card"><div class="demo"><div class="token flip-demo"></div></div><h3>Flip</h3><p>Turns a card or panel around. Good for flash cards, preview/details cards, settings tiles, and galleries.</p><div class="prompt"><b>Prompt:</b> Add a smooth 3D card flip animation for switching between summary and details.</div></article>
+        <article class="style-card"><div class="demo"><div class="token blur-demo"></div></div><h3>Blur reveal</h3><p>Starts blurry then sharpens. Good for premium hero sections, glass UI, images, and dramatic entrances.</p><div class="prompt"><b>Prompt:</b> Use a premium blur-to-sharp reveal with opacity fade and slight upward movement.</div></article>
+        <article class="style-card"><div class="demo"><div class="token glow-demo"></div></div><h3>Glow pulse</h3><p>Creates a soft light pulse. Great for active states, AI features, audio apps, scan buttons, and focus highlights.</p><div class="prompt"><b>Prompt:</b> Add a soft glowing pulse around the primary action, subtle and modern.</div></article>
+      </div>
+    </section>
+
+    <section class="section" id="reveals">
+      <div class="section-head">
+        <h2>2. Reveals and entrances</h2>
+        <p class="summary">These make pages feel polished when content enters, scrolls into view, or loads in a sequence.</p>
+      </div>
+      <div class="grid">
+        <article class="style-card"><div class="demo"><div class="reveal-demo"></div></div><h3>Clip reveal</h3><p>Content appears as if a mask slides open. Great for section headings, image cards, and modern portfolios.</p><div class="prompt"><b>Prompt:</b> Reveal major headings and image panels with a clean masked clip animation.</div></article>
+        <article class="style-card"><div class="demo"><svg class="line-demo" viewBox="0 0 120 80"><path d="M10 60 C30 10, 50 10, 70 42 S96 68, 110 18" fill="none" stroke="#6fffd2" stroke-width="6" stroke-linecap="round"/></svg></div><h3>SVG draw</h3><p>Lines draw themselves on screen. Great for icons, process flows, maps, signatures, and custom illustrations.</p><div class="prompt"><b>Prompt:</b> Use animated SVG line drawing for icons and process steps, with clean stroke animation.</div></article>
+        <article class="style-card"><div class="demo"><div class="type-demo">Hello motion</div></div><h3>Typewriter</h3><p>Text types in character by character. Best for developer tools, terminal effects, AI assistants, and intros.</p><div class="prompt"><b>Prompt:</b> Add a tasteful typewriter text effect for the headline or command-style messages.</div></article>
+        <article class="style-card"><div class="demo"><div class="scroll-demo"></div></div><h3>Scroll reveal</h3><p>Elements animate as the user scrolls. Common for landing pages, dashboards, and marketing pages.</p><div class="prompt"><b>Prompt:</b> Animate sections as they scroll into view with fade, slight lift, and staggered card timing.</div></article>
+        <article class="style-card"><div class="demo"><div class="modal-demo"></div></div><h3>Modal entrance</h3><p>Popup opens with opacity, scale, and movement. Good for previews, dialogs, upload panels, and alerts.</p><div class="prompt"><b>Prompt:</b> Make modals open with a soft scale-up, fade-in, and blurred overlay behind them.</div></article>
+        <article class="style-card"><div class="demo"><div class="toast-demo">Saved successfully</div></div><h3>Toast / notification</h3><p>Small message slides in, stays briefly, then leaves. Perfect for save confirmations and background tasks.</p><div class="prompt"><b>Prompt:</b> Use clean toast notifications that slide up, fade in, pause, then fade out.</div></article>
+      </div>
+    </section>
+
+    <section class="section" id="micro">
+      <div class="section-head">
+        <h2>3. Micro-interactions</h2>
+        <p class="summary">Small details that make an app feel alive: hover states, focus states, button feedback, toggles, and icons.</p>
+      </div>
+      <div class="grid">
+        <article class="style-card"><div class="demo"><div class="token hover-demo"></div></div><h3>Hover lift</h3><p>Cards gently rise when hovered. A must-have for modern dashboards and clean web apps.</p><div class="prompt"><b>Prompt:</b> Give cards a subtle hover lift with soft shadow, no aggressive movement.</div></article>
+        <article class="style-card"><div class="demo"><div class="token magnetic-demo"></div></div><h3>Magnetic hover</h3><p>Button or card slightly follows the cursor. Great for high-end portfolio or landing page interactions.</p><div class="prompt"><b>Prompt:</b> Add magnetic hover behavior to primary buttons so they feel premium and interactive.</div></article>
+        <article class="style-card"><div class="demo"><div class="token tilt-demo"></div></div><h3>3D tilt</h3><p>Card tilts in perspective. Useful for product cards, gallery thumbnails, and game-like interfaces.</p><div class="prompt"><b>Prompt:</b> Add a subtle 3D tilt hover effect to cards, with perspective and smooth reset.</div></article>
+        <article class="style-card"><div class="demo"><div class="token elastic-demo"></div></div><h3>Elastic press</h3><p>Button squishes when pressed. Adds physical feedback without needing a heavy animation library.</p><div class="prompt"><b>Prompt:</b> Make buttons slightly compress on click, then spring back naturally.</div></article>
+        <article class="style-card"><div class="demo"><div class="token shake-demo"></div></div><h3>Error shake</h3><p>Small shake used for validation errors. Should be quick and limited to the affected field.</p><div class="prompt"><b>Prompt:</b> Use a small horizontal shake only for invalid fields or failed actions.</div></article>
+        <article class="style-card"><div class="demo"><div class="counter-demo">99%</div></div><h3>Counter animation</h3><p>Numbers count upward or pulse. Excellent for stats, progress, dashboard metrics, and summaries.</p><div class="prompt"><b>Prompt:</b> Animate dashboard numbers counting up smoothly when the section appears.</div></article>
+      </div>
+    </section>
+
+    <section class="section" id="loading">
+      <div class="section-head">
+        <h2>4. Loading and progress</h2>
+        <p class="summary">Use these when importing, scanning, processing, uploading, downloading, searching, or waiting on data.</p>
+      </div>
+      <div class="grid">
+        <article class="style-card"><div class="demo"><div class="loader-demo"></div></div><h3>Spinner</h3><p>Classic loading indicator. Use for quick operations only. Pair with text for clarity.</p><div class="prompt"><b>Prompt:</b> Add a clean spinner with a friendly loading message for short tasks.</div></article>
+        <article class="style-card"><div class="demo"><div class="shimmer-demo"></div></div><h3>Skeleton shimmer</h3><p>Placeholder blocks shimmer while content loads. Best for image grids, cards, tables, and feeds.</p><div class="prompt"><b>Prompt:</b> Use skeleton loading cards with a soft shimmer effect while media loads.</div></article>
+        <article class="style-card"><div class="demo"><div class="dots-demo"><span></span><span></span><span></span></div></div><h3>Dot wave</h3><p>Three-dot animated waiting state. Good for chat, AI thinking, search, and compact loading areas.</p><div class="prompt"><b>Prompt:</b> Add a small three-dot wave loading indicator for background thinking or searching.</div></article>
+        <article class="style-card"><div class="demo"><div class="pulse-line"></div></div><h3>Progress pulse</h3><p>A line pulses while something is happening. Good when exact progress is unknown.</p><div class="prompt"><b>Prompt:</b> Use an indeterminate progress bar when exact progress cannot be measured.</div></article>
+        <article class="style-card"><div class="demo"><div class="reveal-demo"></div></div><h3>Progress fill</h3><p>A bar fills from left to right. Use when the app can measure scanning, importing, or exporting.</p><div class="prompt"><b>Prompt:</b> Add a real progress bar with percentage, status text, and completed step labels.</div></article>
+        <article class="style-card"><div class="demo"><div class="toast-demo">Processing folder...</div></div><h3>Status message</h3><p>Plain-language status updates. Very important for local apps handling large folders or slow files.</p><div class="prompt"><b>Prompt:</b> Show friendly status messages for scanning, importing, saving, and errors.</div></article>
+      </div>
+    </section>
+
+    <section class="section" id="page">
+      <div class="section-head">
+        <h2>5. Page, layout, and navigation motion</h2>
+        <p class="summary">These help whole screens feel connected instead of suddenly changing.</p>
+      </div>
+      <div class="grid">
+        <article class="style-card"><div class="demo"><div class="page-demo"></div></div><h3>Page transition</h3><p>A whole screen slides/fades when changing routes. Great for multi-page websites and apps.</p><div class="prompt"><b>Prompt:</b> Use smooth page transitions with fade and slight slide between major screens.</div></article>
+        <article class="style-card"><div class="demo parallax-demo"><div class="token"></div></div><h3>Parallax layers</h3><p>Different layers move at different speeds. Great for hero sections and immersive landing pages.</p><div class="prompt"><b>Prompt:</b> Add subtle parallax depth to the hero section using layered shapes and images.</div></article>
+        <article class="style-card"><div class="demo"><div class="token morph-demo"></div></div><h3>Layout morph</h3><p>One shape or layout smoothly transforms into another. Useful for expanding cards and detail views.</p><div class="prompt"><b>Prompt:</b> Make selected cards smoothly morph into a larger detail panel.</div></article>
+        <article class="style-card"><div class="demo"><div class="token slide-demo"></div></div><h3>Drawer / sidebar</h3><p>Navigation panel slides from the side. Should feel fast, stable, and easy to close.</p><div class="prompt"><b>Prompt:</b> Add a side drawer that slides in smoothly with a dimmed blurred background overlay.</div></article>
+        <article class="style-card"><div class="demo"><div class="modal-demo"></div></div><h3>Accordion expand</h3><p>Sections open by expanding height. Useful for FAQs, settings panels, and grouped controls.</p><div class="prompt"><b>Prompt:</b> Use smooth accordion expand/collapse motion with no content jumping.</div></article>
+        <article class="style-card"><div class="demo"><div class="scroll-demo"></div></div><h3>Sticky scroll effects</h3><p>Elements pin, shrink, fade, or transform while scrolling. Great for stories and product pages.</p><div class="prompt"><b>Prompt:</b> Add sticky scroll-based section transitions that feel smooth and lightweight.</div></article>
+      </div>
+    </section>
+
+    <section class="section" id="visual">
+      <div class="section-head">
+        <h2>6. Visual and decorative effects</h2>
+        <p class="summary">These are more stylized. Use them to define a strong visual identity, but keep accessibility and performance in mind.</p>
+      </div>
+      <div class="grid">
+        <article class="style-card"><div class="demo"><div class="token gradient-demo"></div></div><h3>Animated gradient</h3><p>Gradient colors slowly move. Great for modern SaaS, AI, music, and creative tools.</p><div class="prompt"><b>Prompt:</b> Use a slow animated gradient background with a premium soft glow style.</div></article>
+        <article class="style-card"><div class="demo"><div class="bg-demo"></div></div><h3>Moving background</h3><p>Background blobs, lights, or patterns drift gently. Creates depth without moving the main content.</p><div class="prompt"><b>Prompt:</b> Add very subtle animated background blobs that move slowly behind the interface.</div></article>
+        <article class="style-card"><div class="demo particle-demo"><span></span><span></span><span></span><span></span></div><h3>Particles</h3><p>Small floating dots, sparks, or pixels. Good for audio, gaming, AI, upload success, and celebrations.</p><div class="prompt"><b>Prompt:</b> Add lightweight particles for atmosphere, but keep them minimal and performance-friendly.</div></article>
+        <article class="style-card"><div class="demo"><div class="token liquid-demo"></div></div><h3>Liquid / blob</h3><p>Organic shape morphing. Good for creative websites, music apps, and friendly modern designs.</p><div class="prompt"><b>Prompt:</b> Use soft liquid blob animations in the background for a friendly modern feel.</div></article>
+        <article class="style-card"><div class="demo"><div class="token glow-demo"></div></div><h3>Neon / cyber glow</h3><p>Bright glowing edges and light trails. Best for gaming, music, nightlife, and cyberpunk designs.</p><div class="prompt"><b>Prompt:</b> Create a dark neon cyber style with glowing edges, animated light pulses, and glass panels.</div></article>
+        <article class="style-card"><div class="demo"><div class="line-demo"></div></div><h3>Glassmorphism motion</h3><p>Blurred panels, soft borders, and moving light. Works well for Apple-like clean app interfaces.</p><div class="prompt"><b>Prompt:</b> Use glassmorphism panels with subtle floating motion, soft shadows, and blurred background light.</div></article>
+      </div>
+    </section>
+
+    <section class="prompt-builder" id="prompt-builder">
+      <h2>Master prompt to ask for a specific animation style</h2>
+      <p class="summary">Copy this and replace the bracketed parts with what you want.</p>
+      <div class="big-prompt">
+        Create a modern web interface using <strong>[animation style]</strong>. The animation should feel <strong>[premium / Apple-like / playful / futuristic / minimal / cinematic / enterprise]</strong>. Use <strong>[fade / slide / scale / spring / blur / parallax / shimmer / hover lift / page transitions]</strong> where appropriate. Keep the motion smooth, lightweight, and polished. Use natural easing, staggered timing for repeated cards, and avoid anything too distracting. Include loading states, hover states, active states, focus states, and reduced-motion support. Make the design responsive and make sure nothing overlaps, trails off-screen, or feels cluttered.
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>Style-specific prompt shortcuts</h2>
+        <p class="summary">Use these when you already know the overall vibe you want.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Desired style</th><th>Tell ChatGPT this</th><th>Best for</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Apple-like clean motion</strong></td><td>Use subtle spring motion, soft fades, gentle scale, clean hover lift, and polished transitions similar to Apple apps.</td><td>Productivity apps, media apps, internal tools</td></tr>
+            <tr><td><strong>Enterprise/professional</strong></td><td>Use restrained fade and slide animations, clear loading feedback, polished hover states, and no overly playful effects.</td><td>IT tools, dashboards, admin panels</td></tr>
+            <tr><td><strong>Premium SaaS</strong></td><td>Use scroll reveals, staggered cards, animated gradients, glass panels, soft glow, and refined micro-interactions.</td><td>Landing pages, product sites, AI tools</td></tr>
+            <tr><td><strong>Gaming / cyberpunk</strong></td><td>Use dark UI, neon glow, pulse effects, animated borders, fast hover feedback, and subtle particle effects.</td><td>Games, music tools, stream overlays</td></tr>
+            <tr><td><strong>Playful and friendly</strong></td><td>Use bounce, elastic press, blob shapes, cheerful transitions, and animated success states while staying clean.</td><td>Kids apps, casual tools, onboarding</td></tr>
+            <tr><td><strong>Minimal and calm</strong></td><td>Use mostly opacity, small position changes, slow easing, and no decoration-heavy motion.</td><td>Portfolios, writing apps, quiet productivity UI</td></tr>
+            <tr><td><strong>Cinematic</strong></td><td>Use slow fade-ins, blur reveals, parallax depth, dramatic section entrances, and large smooth transitions.</td><td>Hero pages, portfolios, product stories</td></tr>
+            <tr><td><strong>Data dashboard</strong></td><td>Animate counters, progress bars, chart entrances, hover details, and loading skeletons without slowing the page.</td><td>Analytics, reports, internal dashboards</td></tr>
+            <tr><td><strong>Media gallery</strong></td><td>Use fast thumbnail fade-ins, skeleton loading, hover zoom, modal preview animation, and smooth filtering transitions.</td><td>Photo/video managers, galleries</td></tr>
+            <tr><td><strong>AI assistant feel</strong></td><td>Use glowing input focus, typing indicators, soft message reveal, shimmer loading, and calm background motion.</td><td>Chatbots, AI tools, search assistants</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" id="rules">
+      <div class="section-head">
+        <h2>Animation rules to include in prompts</h2>
+        <p class="summary">These details help keep the result polished, user-friendly, and not annoying.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Rule</th><th>What to ask for</th><th>Why it matters</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Use natural easing</strong></td><td>Use smooth ease-out or spring easing instead of linear movement.</td><td>Linear motion feels robotic and cheap.</td></tr>
+            <tr><td><strong>Keep motion short</strong></td><td>Most UI animations should be around 150–400ms.</td><td>Long animations make apps feel slow.</td></tr>
+            <tr><td><strong>Stagger repeated items</strong></td><td>Cards should enter one after another with a tiny delay.</td><td>Lists and grids feel more polished.</td></tr>
+            <tr><td><strong>Show loading feedback</strong></td><td>Use progress bars, skeletons, status text, or spinners for slow work.</td><td>Users should never wonder if the app froze.</td></tr>
+            <tr><td><strong>Support reduced motion</strong></td><td>Add prefers-reduced-motion support.</td><td>Important for accessibility and comfort.</td></tr>
+            <tr><td><strong>Do not overanimate</strong></td><td>Only animate actions, state changes, loading, and important visual moments.</td><td>Too much motion feels distracting.</td></tr>
+            <tr><td><strong>Use GPU-friendly properties</strong></td><td>Prefer transform and opacity over animating width, height, top, or left.</td><td>Keeps the interface smooth and lightweight.</td></tr>
+            <tr><td><strong>Make states obvious</strong></td><td>Include hover, active, focus, disabled, selected, loading, success, and error states.</td><td>The app feels complete and easier to use.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <strong>Simple formula:</strong> ask for the visual style, then ask for the motion behavior, then ask for usability rules. Example: “Create an Apple-like media gallery with soft fade-in thumbnails, quick hover zoom, skeleton loading, smooth modal previews, reduced-motion support, and lightweight CSS animations.”
+    </footer>
+  </main>
+</body>
+</html>
