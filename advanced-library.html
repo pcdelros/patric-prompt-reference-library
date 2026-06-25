@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Advanced ChatGPT Prompt Library</title>
+  <style>
+    :root {
+      --bg:#0b0f19;
+      --panel:#111827;
+      --panel2:#151f32;
+      --text:#e5e7eb;
+      --muted:#9ca3af;
+      --accent:#7dd3fc;
+      --accent2:#a78bfa;
+      --line:#263244;
+      --ok:#86efac;
+      --warn:#fde68a;
+      --danger:#fca5a5;
+      --code:#0a1220;
+      --shadow:0 20px 70px rgba(0,0,0,.35);
+      --radius:18px;
+    }
+
+    * { box-sizing:border-box; }
+
+    html { scroll-behavior:smooth; }
+
+    body {
+      margin:0;
+      background:
+        radial-gradient(circle at top left,rgba(125,211,252,.13),transparent 36%),
+        radial-gradient(circle at 85% 12%,rgba(167,139,250,.12),transparent 32%),
+        var(--bg);
+      color:var(--text);
+      font:15px/1.6 Inter,Segoe UI,Roboto,Arial,sans-serif;
+    }
+
+    .wrap {
+      max-width:1180px;
+      margin:0 auto;
+      padding:32px 22px 70px;
+    }
+
+    .hero {
+      padding:34px;
+      border:1px solid var(--line);
+      background:linear-gradient(180deg,rgba(17,24,39,.92),rgba(15,23,42,.82));
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+
+    .eyebrow {
+      color:var(--accent);
+      font-weight:800;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      font-size:12px;
+    }
+
+    h1 {
+      font-size:clamp(30px,5vw,56px);
+      line-height:1.02;
+      margin:10px 0 14px;
+    }
+
+    h2 {
+      font-size:28px;
+      margin:42px 0 12px;
+    }
+
+    h3 {
+      font-size:20px;
+      margin:0 0 8px;
+    }
+
+    .sub {
+      font-size:18px;
+      color:var(--muted);
+      max-width:850px;
+    }
+
+    .nav {
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin:20px 0;
+    }
+
+    .nav a,
+    .pill {
+      color:var(--text);
+      text-decoration:none;
+      padding:10px 13px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(255,255,255,.04);
+    }
+
+    .nav a:hover {
+      border-color:var(--accent);
+      color:white;
+    }
+
+    .grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
+      gap:16px;
+      margin-top:18px;
+    }
+
+    .card {
+      background:rgba(17,24,39,.82);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:20px;
+      box-shadow:0 10px 40px rgba(0,0,0,.18);
+    }
+
+    .card.link {
+      transition:.18s;
+    }
+
+    .card.link:hover {
+      border-color:var(--accent);
+      transform:translateY(-1px);
+    }
+
+    .card.link a {
+      color:inherit;
+      text-decoration:none;
+      display:block;
+    }
+
+    .muted { color:var(--muted); }
+
+    .tag {
+      display:inline-block;
+      font-size:12px;
+      color:#dbeafe;
+      background:rgba(125,211,252,.12);
+      border:1px solid rgba(125,211,252,.28);
+      border-radius:999px;
+      padding:4px 8px;
+      margin:3px 4px 3px 0;
+    }
+
+    .callout {
+      border-left:4px solid var(--accent);
+      background:rgba(125,211,252,.08);
+      padding:15px 18px;
+      border-radius:14px;
+      margin:18px 0;
+    }
+
+    .warn {
+      border-left-color:var(--warn);
+      background:rgba(253,230,138,.08);
+    }
+
+    table {
+      border-collapse:collapse;
+      width:100%;
+      overflow:hidden;
+      border-radius:14px;
+      border:1px solid var(--line);
+      margin:16px 0;
+      background:rgba(17,24,39,.75);
+    }
+
+    td,
+    th {
+      border-bottom:1px solid var(--line);
+      padding:11px;
+      text-align:left;
+      vertical-align:top;
+    }
+
+    th {
+      color:#fff;
+      background:rgba(255,255,255,.04);
+    }
+
+    tr:last-child td {
+      border-bottom:0;
+    }
+
+    .footer {
+      margin-top:50px;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    @media(max-width:720px) {
+      .hero { padding:24px; }
+      .wrap { padding:20px 14px 50px; }
+      h1 { font-size:34px; }
+      .grid { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="eyebrow">Prompt playbook</div>
+
+      <h1>Advanced ChatGPT Prompt Library</h1>
+
+      <p class="sub">
+        Advanced prompt patterns for getting stronger, more complete results from ChatGPT
+        when building local apps, GUIs, IT tools, troubleshooting workflows, and polished
+        work communication.
+      </p>
+
+      <div class="nav">
+        <a href="index.html">Main Hub</a>
+        <a href="advanced-app-prompts.html">Advanced App Prompts</a>
+        <a href="gui-system-design-prompts.html">GUI Systems</a>
+        <a href="debugging-performance-prompts.html">Debugging & Performance</a>
+        <a href="it-workflows-automation-prompts.html">IT Workflows</a>
+        <a href="prompt-kits.html">Prompt Kits</a>
+      </div>
+    </section>
+
+    <section class="callout warn">
+      <strong>What changed from the first version:</strong>
+      this set focuses on things you have not been using enough yet: acceptance criteria,
+      design systems, state models, performance budgets, crash-proof loading, security review,
+      release packaging, user testing, rollback plans, logging, and maintainability.
+    </section>
+
+    <h2>File Map</h2>
+
+    <div class="grid">
+      <div class="card link">
+        <a href="advanced-app-prompts.html">
+          <h3>Advanced App Prompts</h3>
+          <p class="muted">
+            Prompt patterns for complete local apps: spec-first builds, packaging, settings,
+            updaters, safe launchers, install checks, and user acceptance tests.
+          </p>
+          <span class="tag">Apps</span>
+          <span class="tag">Local tools</span>
+          <span class="tag">Packaging</span>
+        </a>
+      </div>
+
+      <div class="card link">
+        <a href="gui-system-design-prompts.html">
+          <h3>GUI Systems</h3>
+          <p class="muted">
+            Beyond “make it modern”: design tokens, component rules, responsive layouts,
+            state behavior, accessibility, animations, and UI QA.
+          </p>
+          <span class="tag">GUI</span>
+          <span class="tag">Design system</span>
+          <span class="tag">UX</span>
+        </a>
+      </div>
+
+      <div class="card link">
+        <a href="debugging-performance-prompts.html">
+          <h3>Debugging & Performance</h3>
+          <p class="muted">
+            Prompts for crashes, lag, huge folders, media thumbnails, progress bars, freezes,
+            logs, memory leaks, and reproducible diagnostics.
+          </p>
+          <span class="tag">Performance</span>
+          <span class="tag">Crashes</span>
+          <span class="tag">Large folders</span>
+        </a>
+      </div>
+
+      <div class="card link">
+        <a href="it-workflows-automation-prompts.html">
+          <h3>IT Workflows</h3>
+          <p class="muted">
+            Prompts for RCSC-style internal tools, tickets, low-level explanations,
+            escalation summaries, testing notes, and safe automation.
+          </p>
+          <span class="tag">IT support</span>
+          <span class="tag">Tickets</span>
+          <span class="tag">Automation</span>
+        </a>
+      </div>
+
+      <div class="card link">
+        <a href="prompt-kits.html">
+          <h3>Prompt Kits</h3>
+          <p class="muted">
+            Ready-made combinations you can paste depending on what you are building or fixing.
+          </p>
+          <span class="tag">Copy/paste</span>
+          <span class="tag">Templates</span>
+        </a>
+      </div>
+    </div>
+
+    <h2>Underused Prompt Ideas You Should Start Using</h2>
+
+    <table>
+      <tr>
+        <th>Prompt idea</th>
+        <th>Why it helps you</th>
+      </tr>
+      <tr>
+        <td>Ask for an acceptance test checklist before files are created.</td>
+        <td>Prevents “it technically runs, but not how I wanted.”</td>
+      </tr>
+      <tr>
+        <td>Ask for a performance budget.</td>
+        <td>For huge photo/video folders, this forces lazy loading, caching, background workers, and progress states from the start.</td>
+      </tr>
+      <tr>
+        <td>Ask for a state model.</td>
+        <td>Makes apps behave predictably when loading, scanning, paused, errored, empty, offline, or permission-denied.</td>
+      </tr>
+      <tr>
+        <td>Ask for a log and debug panel schema.</td>
+        <td>Stops useless “it crashed” situations by forcing readable logs and exportable diagnostics.</td>
+      </tr>
+      <tr>
+        <td>Ask for edge-case matrices.</td>
+        <td>Finds problems like duplicate drive letters, missing permissions, weird filenames, disconnected VPN, and locked files before you test.</td>
+      </tr>
+      <tr>
+        <td>Ask for a rollback plan.</td>
+        <td>Helpful for IT tools that edit files, map drives, change settings, or touch production workflows.</td>
+      </tr>
+    </table>
+
+    <div class="footer">
+      Use these as strong constraints, checklists, and acceptance criteria. No prompt can override safety rules,
+      tool limits, or unavailable information, but these are designed to remove ambiguity and make the output much
+      more likely to match what you intended.
+    </div>
+  </div>
+</body>
+</html>
