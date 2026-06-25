@@ -1,0 +1,150 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Copy/Paste Prompt Kits</title><style>
+:root{--bg:#0b0f19;--panel:#111827;--panel2:#151f32;--text:#e5e7eb;--muted:#9ca3af;--accent:#7dd3fc;--accent2:#a78bfa;--line:#263244;--ok:#86efac;--warn:#fde68a;--danger:#fca5a5;--code:#0a1220;--shadow:0 20px 70px rgba(0,0,0,.35);--radius:18px}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at top left,rgba(125,211,252,.13),transparent 36%),radial-gradient(circle at 85% 12%,rgba(167,139,250,.12),transparent 32%),var(--bg);color:var(--text);font:15px/1.6 Inter,Segoe UI,Roboto,Arial,sans-serif}.wrap{max-width:1180px;margin:0 auto;padding:32px 22px 70px}.hero{padding:34px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(17,24,39,.92),rgba(15,23,42,.82));border-radius:var(--radius);box-shadow:var(--shadow)}.eyebrow{color:var(--accent);font-weight:800;letter-spacing:.12em;text-transform:uppercase;font-size:12px}h1{font-size:clamp(30px,5vw,56px);line-height:1.02;margin:10px 0 14px}h2{font-size:28px;margin:42px 0 12px}h3{font-size:20px;margin:0 0 8px}.sub{font-size:18px;color:var(--muted);max-width:850px}.nav{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}.nav a,.pill{color:var(--text);text-decoration:none;padding:10px 13px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.04)}.nav a:hover{border-color:var(--accent);color:white}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px;margin-top:18px}.card{background:rgba(17,24,39,.82);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:0 10px 40px rgba(0,0,0,.18)}.card.link:hover{border-color:var(--accent);transform:translateY(-1px)}.card.link{transition:.18s}.card.link a{color:inherit;text-decoration:none;display:block}.muted{color:var(--muted)}.tag{display:inline-block;font-size:12px;color:#dbeafe;background:rgba(125,211,252,.12);border:1px solid rgba(125,211,252,.28);border-radius:999px;padding:4px 8px;margin:3px 4px 3px 0}.prompt{position:relative;background:var(--code);border:1px solid var(--line);border-radius:16px;margin:14px 0 24px;overflow:hidden}.prompt .top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:11px 13px;background:rgba(255,255,255,.035);border-bottom:1px solid var(--line)}.prompt .title{font-weight:800;color:#fff}.prompt pre{margin:0;padding:16px;white-space:pre-wrap;color:#d1d5db;font:13px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace}.copy{border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--text);border-radius:10px;padding:7px 10px;cursor:pointer}.copy:hover{border-color:var(--accent)}.callout{border-left:4px solid var(--accent);background:rgba(125,211,252,.08);padding:15px 18px;border-radius:14px;margin:18px 0}.warn{border-left-color:var(--warn);background:rgba(253,230,138,.08)}.ok{border-left-color:var(--ok);background:rgba(134,239,172,.08)}.danger{border-left-color:var(--danger);background:rgba(252,165,165,.08)}table{border-collapse:collapse;width:100%;overflow:hidden;border-radius:14px;border:1px solid var(--line);margin:16px 0;background:rgba(17,24,39,.75)}td,th{border-bottom:1px solid var(--line);padding:11px;text-align:left;vertical-align:top}th{color:#fff;background:rgba(255,255,255,.04)}tr:last-child td{border-bottom:0}.footer{margin-top:50px;color:var(--muted);font-size:13px}.kbd{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;border:1px solid var(--line);border-bottom-width:3px;border-radius:8px;padding:2px 6px;background:#0a1220;color:#fff}.mini{font-size:13px;color:var(--muted)}@media(max-width:720px){.hero{padding:24px}.wrap{padding:20px 14px 50px}h1{font-size:34px}.grid{grid-template-columns:1fr}.prompt pre{font-size:12px}}
+</style></head><body><div class="wrap"><section class="hero"><div class="eyebrow">Kits</div><h1>Copy/Paste Prompt Kits</h1><p class="sub">Advanced prompt patterns for getting stronger, more complete results from ChatGPT when building local apps, GUIs, IT tools, troubleshooting workflows, and polished work communication.</p><div class="nav"><a href="index.html">Home</a><a href="advanced-app-prompts.html">Advanced App Prompts</a><a href="gui-system-design-prompts.html">GUI Systems</a><a href="debugging-performance-prompts.html">Debugging & Performance</a><a href="it-workflows-automation-prompts.html">IT Workflows</a><a href="prompt-kits.html">Prompt Kits</a></div></section><h2>Prompt Kits</h2><section class="callout ok"><strong>These are combined prompts.</strong> Paste one, then fill in the brackets.</section><div class="prompt"><div class="top"><div class="title">Best overall app build kit</div><button class="copy">Copy</button></div><pre>Create a complete downloadable local app for: [APP IDEA].
+
+Use the best development approach for the app idea. Do not force batch files unless they are useful as optional launchers. Do not give copy-and-paste code only; provide the actual files needed to run it.
+
+Before creating files, define:
+- Recommended technology choice and why
+- File structure
+- App state model
+- Performance risks
+- Edge cases
+- Acceptance criteria
+
+Build requirements:
+- Polished modern GUI
+- Resizable window
+- Normal taskbar behavior
+- Custom title bar only if it does not break normal Windows behavior
+- Drawn minimize/maximize/close icons, not letters or weird symbols
+- Clear loading/progress states
+- Long tasks run in background workers
+- Friendly errors for users
+- Detailed logs for debugging
+- Hidden developer/debug menu with useful tools
+- Settings saved outside the code
+- README and debug README
+- Test checklist
+
+After building, tell me exactly which file to launch and what to test first.</pre></div><div class="prompt"><div class="top"><div class="title">Massive media folder app kit</div><button class="copy">Copy</button></div><pre>Create a local photo/video management app that can handle a massive folder of media.
+
+Core requirements:
+- Read common photo and video formats
+- Sort by date created/taken when available, with fallback rules
+- Apple Photos-style grid with thumbnails
+- Fast scrolling using virtualized loading
+- Background folder scan
+- Progress bar with file counts
+- Cancel scan option
+- Thumbnail disk cache
+- Prioritize visible thumbnails first
+- Video preview thumbnails when possible
+- Click media to open a clean preview pop-up
+- Timeline by date, not just time
+- Search and filters
+- Friendly skipped-file list
+- Debug log export
+
+Performance requirements:
+- Do not freeze or show Not Responding during scanning
+- Do not load all media into memory
+- Do not generate all thumbnails on the UI thread
+- Show partial results while loading
+
+Provide the files, README, debug launcher, and test checklist.</pre></div><div class="prompt"><div class="top"><div class="title">Drive mapping/internal IT tool kit</div><button class="copy">Copy</button></div><pre>Create a local internal IT tool for managing mapped drives.
+
+Requirements:
+- Detect existing mapped drives
+- Add/remove drives
+- Change drive letters safely
+- Prevent duplicate drive letters
+- If a conflict exists, prompt to resolve it
+- Search shared folders when adding drives
+- Validate paths before saving
+- Detect duplicate paths and ask before removing duplicates
+- Open the linked batch/script when double-clicking a mapped folder path
+- Keep available drive letters updated immediately
+- Logs for every change
+- Backup before modifying files
+- Undo/rollback where practical
+- Friendly errors for disconnected VPN, missing permissions, unavailable servers, and locked files
+- Clean, resizable GUI
+- Hidden debug menu
+
+Do not store passwords in plain text. Use the safest practical approach for credentials.</pre></div><div class="prompt"><div class="top"><div class="title">Fix my existing app kit</div><button class="copy">Copy</button></div><pre>Fix my existing app without rebuilding it from scratch.
+
+Problem:
+[DESCRIBE PROBLEM]
+
+Expected behavior:
+[DESCRIBE EXPECTED BEHAVIOR]
+
+Current files/notes:
+[PASTE OR ATTACH DETAILS]
+
+Rules:
+- Preserve working features
+- Make the smallest safe change
+- Add logs near the broken behavior
+- Improve user-facing error messages
+- Do not introduce command windows unless debug launcher is used
+- Do not change the visual style unless required
+- Explain changed files
+- Include a test checklist
+- Be honest about anything that could not be fixed</pre></div><div class="prompt"><div class="top"><div class="title">Polished ticket/email kit</div><button class="copy">Copy</button></div><pre>Create a polished IT response.
+
+Context:
+[PASTE CONTEXT]
+
+Write it in a tone that is:
+- Professional
+- Friendly
+- Low-level language
+- Not too technical
+- Not overly apologetic
+- Clear about the next step
+- Avoids repeating “thank you for reaching out”
+
+Give me 2 versions:
+1. Short ticket response
+2. Slightly more detailed email response</pre></div><div class="prompt"><div class="top"><div class="title">Ask ChatGPT to challenge your prompt</div><button class="copy">Copy</button></div><pre>Before answering my request, challenge my prompt.
+
+Request:
+[PASTE REQUEST]
+
+Tell me:
+- What is unclear
+- What might cause bad output
+- What constraints are missing
+- What I may be over-specifying
+- What I may be under-specifying
+- What assumptions you will make if I do not clarify
+
+Then rewrite my request into a stronger prompt and proceed using the improved version.</pre></div><div class="prompt"><div class="top"><div class="title">Senior reviewer mode</div><button class="copy">Copy</button></div><pre>Act as a senior product designer, senior Windows app developer, and practical IT support lead.
+
+Review this idea:
+[PASTE IDEA]
+
+Give me:
+- What is useful
+- What is risky
+- What is too complicated
+- What should be simplified
+- What normal users will misunderstand
+- What needs logs/progress/errors
+- What should be configurable
+- What should be built first
+- What should wait
+- A stronger build prompt I can paste back to you</pre></div><div class="footer">Use these as strong constraints, checklists, and acceptance criteria. No prompt can override safety rules, tool limits, or unavailable information, but these are designed to remove ambiguity and make the output much more likely to match what you intended.</div></div>
+<script>
+document.addEventListener('click', async (e)=>{
+  const btn=e.target.closest('.copy');
+  if(!btn) return;
+  const box=btn.closest('.prompt');
+  const text=box.querySelector('pre').innerText;
+  try{await navigator.clipboard.writeText(text);btn.textContent='Copied';setTimeout(()=>btn.textContent='Copy',1200)}
+  catch(err){btn.textContent='Select text';setTimeout(()=>btn.textContent='Copy',1200)}
+});
+</script>
+</body></html>

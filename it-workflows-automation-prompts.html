@@ -1,0 +1,115 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>IT Workflow and Automation Prompts</title><style>
+:root{--bg:#0b0f19;--panel:#111827;--panel2:#151f32;--text:#e5e7eb;--muted:#9ca3af;--accent:#7dd3fc;--accent2:#a78bfa;--line:#263244;--ok:#86efac;--warn:#fde68a;--danger:#fca5a5;--code:#0a1220;--shadow:0 20px 70px rgba(0,0,0,.35);--radius:18px}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at top left,rgba(125,211,252,.13),transparent 36%),radial-gradient(circle at 85% 12%,rgba(167,139,250,.12),transparent 32%),var(--bg);color:var(--text);font:15px/1.6 Inter,Segoe UI,Roboto,Arial,sans-serif}.wrap{max-width:1180px;margin:0 auto;padding:32px 22px 70px}.hero{padding:34px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(17,24,39,.92),rgba(15,23,42,.82));border-radius:var(--radius);box-shadow:var(--shadow)}.eyebrow{color:var(--accent);font-weight:800;letter-spacing:.12em;text-transform:uppercase;font-size:12px}h1{font-size:clamp(30px,5vw,56px);line-height:1.02;margin:10px 0 14px}h2{font-size:28px;margin:42px 0 12px}h3{font-size:20px;margin:0 0 8px}.sub{font-size:18px;color:var(--muted);max-width:850px}.nav{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}.nav a,.pill{color:var(--text);text-decoration:none;padding:10px 13px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.04)}.nav a:hover{border-color:var(--accent);color:white}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px;margin-top:18px}.card{background:rgba(17,24,39,.82);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:0 10px 40px rgba(0,0,0,.18)}.card.link:hover{border-color:var(--accent);transform:translateY(-1px)}.card.link{transition:.18s}.card.link a{color:inherit;text-decoration:none;display:block}.muted{color:var(--muted)}.tag{display:inline-block;font-size:12px;color:#dbeafe;background:rgba(125,211,252,.12);border:1px solid rgba(125,211,252,.28);border-radius:999px;padding:4px 8px;margin:3px 4px 3px 0}.prompt{position:relative;background:var(--code);border:1px solid var(--line);border-radius:16px;margin:14px 0 24px;overflow:hidden}.prompt .top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:11px 13px;background:rgba(255,255,255,.035);border-bottom:1px solid var(--line)}.prompt .title{font-weight:800;color:#fff}.prompt pre{margin:0;padding:16px;white-space:pre-wrap;color:#d1d5db;font:13px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace}.copy{border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--text);border-radius:10px;padding:7px 10px;cursor:pointer}.copy:hover{border-color:var(--accent)}.callout{border-left:4px solid var(--accent);background:rgba(125,211,252,.08);padding:15px 18px;border-radius:14px;margin:18px 0}.warn{border-left-color:var(--warn);background:rgba(253,230,138,.08)}.ok{border-left-color:var(--ok);background:rgba(134,239,172,.08)}.danger{border-left-color:var(--danger);background:rgba(252,165,165,.08)}table{border-collapse:collapse;width:100%;overflow:hidden;border-radius:14px;border:1px solid var(--line);margin:16px 0;background:rgba(17,24,39,.75)}td,th{border-bottom:1px solid var(--line);padding:11px;text-align:left;vertical-align:top}th{color:#fff;background:rgba(255,255,255,.04)}tr:last-child td{border-bottom:0}.footer{margin-top:50px;color:var(--muted);font-size:13px}.kbd{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;border:1px solid var(--line);border-bottom-width:3px;border-radius:8px;padding:2px 6px;background:#0a1220;color:#fff}.mini{font-size:13px;color:var(--muted)}@media(max-width:720px){.hero{padding:24px}.wrap{padding:20px 14px 50px}h1{font-size:34px}.grid{grid-template-columns:1fr}.prompt pre{font-size:12px}}
+</style></head><body><div class="wrap"><section class="hero"><div class="eyebrow">Work</div><h1>IT Workflow and Automation Prompts</h1><p class="sub">Advanced prompt patterns for getting stronger, more complete results from ChatGPT when building local apps, GUIs, IT tools, troubleshooting workflows, and polished work communication.</p><div class="nav"><a href="index.html">Home</a><a href="advanced-app-prompts.html">Advanced App Prompts</a><a href="gui-system-design-prompts.html">GUI Systems</a><a href="debugging-performance-prompts.html">Debugging & Performance</a><a href="it-workflows-automation-prompts.html">IT Workflows</a><a href="prompt-kits.html">Prompt Kits</a></div></section><h2>IT Workflow, Ticket, and Automation Prompts</h2><section class="callout"><strong>Built around your RCSC-style work:</strong> these help create clearer tickets, escalation notes, user-friendly replies, and internal tools without sounding overly technical.</section><div class="prompt"><div class="top"><div class="title">Low-level explanation prompt</div><button class="copy">Copy</button></div><pre>Explain this to me in low-level language like I am trying to understand it well enough to communicate it, not like I am an expert.
+
+Topic/problem: [PASTE TOPIC]
+
+Give me:
+- What it means
+- Why it probably happened
+- What parts matter
+- What parts I do not need to overthink
+- What I can say to the requester
+- A simple analogy
+- A concise answer I can use in a ticket</pre></div><div class="prompt"><div class="top"><div class="title">Ticket closeout builder</div><button class="copy">Copy</button></div><pre>Create a ticket closeout note for this work.
+
+Issue reported: [ISSUE]
+What I checked: [WHAT YOU CHECKED]
+What I found: [FINDINGS]
+What I did: [ACTION TAKEN]
+Result: [RESULT]
+
+Make it professional, clear, and not overly technical. Include that the ticket is being closed for now, and ask them to contact us again if anything else comes up.</pre></div><div class="prompt"><div class="top"><div class="title">Escalation summary prompt</div><button class="copy">Copy</button></div><pre>Create an escalation summary I can send to another IT team.
+
+Keep it clear and factual, not dramatic.
+
+Include:
+- User/requester
+- Location
+- Device/system affected
+- Reported issue
+- What I already checked
+- What changed recently, if known
+- Screenshots/logs available, if any
+- What I need from the other team
+- Business impact in plain language
+
+Avoid sounding like I already know the root cause unless the evidence is solid.</pre></div><div class="prompt"><div class="top"><div class="title">Before/after troubleshooting log</div><button class="copy">Copy</button></div><pre>Turn my notes into a clean troubleshooting log.
+
+Raw notes:
+[PASTE NOTES]
+
+Format it as:
+- Reported issue
+- Location/user
+- Steps taken
+- Findings
+- Fix applied
+- Testing performed
+- Current status
+- Follow-up needed
+
+Use simple language and avoid jargon unless needed.</pre></div><div class="prompt"><div class="top"><div class="title">Internal tool safety prompt</div><button class="copy">Copy</button></div><pre>I want to create an internal IT tool for [TOOL IDEA].
+
+Before building it, review it for safety and supportability:
+- What could go wrong?
+- What permissions does it need?
+- What should be read-only?
+- What should require confirmation?
+- What should be logged?
+- What should have rollback/undo?
+- What should never be stored in plain text?
+- What should be configurable?
+- What should be tested before anyone else uses it?
+
+Then create the tool with those protections built in.</pre></div><div class="prompt"><div class="top"><div class="title">User impact wording prompt</div><button class="copy">Copy</button></div><pre>Rewrite this IT update so it is polite, low-level, and not too technical.
+
+Message:
+[PASTE MESSAGE]
+
+Tone:
+- Helpful
+- Calm
+- Professional
+- Clear
+- Not overly apologetic
+- Not overly expert-sounding
+- Avoid saying urgent unless it truly is
+- Give the person a clear next step if needed</pre></div><div class="prompt"><div class="top"><div class="title">Meeting prep prompt</div><button class="copy">Copy</button></div><pre>Help me prepare for an IT support/project meeting.
+
+Context:
+[PASTE CONTEXT]
+
+Give me:
+- Main topics to bring up
+- Questions I should ask
+- Risks or blockers
+- Things I should clarify
+- Quick wins
+- What I should avoid overcommitting to
+- A simple agenda
+- A short summary I can say out loud</pre></div><div class="prompt"><div class="top"><div class="title">Change plan prompt</div><button class="copy">Copy</button></div><pre>Create a simple change plan for this IT task: [TASK].
+
+Include:
+- Goal
+- Systems affected
+- People affected
+- Before-change checklist
+- Step-by-step plan
+- Backout/rollback plan
+- Testing checklist
+- Communication before and after
+- What to document when done
+
+Keep it practical for internal IT support.</pre></div><div class="footer">Use these as strong constraints, checklists, and acceptance criteria. No prompt can override safety rules, tool limits, or unavailable information, but these are designed to remove ambiguity and make the output much more likely to match what you intended.</div></div>
+<script>
+document.addEventListener('click', async (e)=>{
+  const btn=e.target.closest('.copy');
+  if(!btn) return;
+  const box=btn.closest('.prompt');
+  const text=box.querySelector('pre').innerText;
+  try{await navigator.clipboard.writeText(text);btn.textContent='Copied';setTimeout(()=>btn.textContent='Copy',1200)}
+  catch(err){btn.textContent='Select text';setTimeout(()=>btn.textContent='Copy',1200)}
+});
+</script>
+</body></html>
